@@ -4,8 +4,9 @@ SRCS_DIR = ./
 OBJ_DIR = obj/
 INCLUDE = -I./includes/
 CXX = gcc
-CFLAGS = -Wall -Werror -Wextra -g  $(INCLUDE)
+CFLAGS = -Wall -Werror -Wextra -g $(INCLUDE)
 LPTHREAD = -lpthread
+RM = rm -rf
 
 SOURCES = $(wildcard $(SRCS_DIR)*.c)
 OBJS = $(addprefix $(OBJ_DIR), $(notdir $(SOURCES:.c=.o)))
@@ -23,6 +24,8 @@ $(OBJ_DIR)%.o: %.c
 .PHONY: all clean
 
 clean:
-	@echo Limpiando archivos intermedios...
-	rm $(OBJ_DIR)*
-	rm $(SRCS_DIR)*.*~
+	@echo Limpiando...
+	$(RM) $(OBJ_DIR)*
+	$(RM) $(NAME)
+
+re:		clean $(NAME)

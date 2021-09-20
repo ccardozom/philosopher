@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_argv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccardozo <ccardozo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 19:49:41 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/08/13 20:02:20 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/09/20 15:54:52 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ void	save_arguments(t_table *table, int argc, char **argv)
 	table->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		table->number_eat = ft_atoi(argv[5]);
+	pthread_mutex_init(&table->print, NULL);
 }
 
-int		check_arguments(int argc, char **argv, t_table *table)
+int	check_arguments(int argc, char **argv, t_table *table)
 {
-    int wrong_check;
-    
-    wrong_check = 0;
+	int	wrong_check;
+
+	wrong_check = 0;
 	if (argc < 5 || argc > 6)
 	{
 		wrong_check = 1;
@@ -45,7 +46,7 @@ int		check_arguments(int argc, char **argv, t_table *table)
 	else if (table->time_to_sleep < 1 || table->time_to_sleep > RAND_MAX)
 		wrong_check = 6;
 	else
-	 	return (init_philo(table));
+		return (init_philo(table));
 	print_wrong_text(wrong_check);
 	return (1);
 }
