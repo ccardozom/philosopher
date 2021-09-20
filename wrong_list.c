@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 20:24:27 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/07/08 01:39:27 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/07/21 10:44:49 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char    *wrong_list(int number)
     if (number == 1)
         argument_error_cause= "arguments";
     else if (number == 2)
-        argument_error_cause= "philosopher";
-    else if (number == 3)
         argument_error_cause= "meals";
+    else if (number == 3)
+        argument_error_cause= "philosopher";
     else if (number == 4)
         argument_error_cause= "time to die";
     else if (number == 5)

@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_thread.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccardozo <ccardozo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 19:26:31 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/08 07:28:35 by ccardozo         ###   ########.fr       */
+/*   Created: 2021/08/25 11:30:00 by ccardozo          #+#    #+#             */
+/*   Updated: 2021/09/10 00:14:10 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philosopher.h"
+#include "includes/philosopher.h"
 
-int		main(int argc, char **argv)
+int		init_thread(t_table *table)
 {
-	t_table		table;
+	int				cont;
 
-	memset(&table, 0, sizeof(t_table));
-	if ((check_arguments(argc, argv, &table)))
-		return (EXIT_SUCCESS);
-	if ((init_thread(&table)))
-		return (EXIT_SUCCESS);
+	cont = 0;
+	while (cont < table->number_philo)
+	{
+		if (pthread_create(&table->philo[cont].thread, NULL,
+			(void *)start_routine, (void *)&table->philo[cont]))
+			return (1);
+		cont++;
+	}
+	cont = 0;
+	while (cont < table->number_philo)
+		pthread_join(table->philo[cont++].thread, NULL);
 	return (0);
 }

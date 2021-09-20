@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time_ms.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccardozo <ccardozo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 19:26:31 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/08 07:28:35 by ccardozo         ###   ########.fr       */
+/*   Created: 2021/09/08 07:29:07 by ccardozo          #+#    #+#             */
+/*   Updated: 2021/09/08 10:14:00 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philosopher.h"
+#include "includes/philosopher.h"
 
-int		main(int argc, char **argv)
+long int		get_time_in_ms(void)
 {
-	t_table		table;
+	struct timeval	time;
+	long int	i;
 
-	memset(&table, 0, sizeof(t_table));
-	if ((check_arguments(argc, argv, &table)))
-		return (EXIT_SUCCESS);
-	if ((init_thread(&table)))
-		return (EXIT_SUCCESS);
-	return (0);
+	gettimeofday(&time, NULL);
+	i = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (i);
 }

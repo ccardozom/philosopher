@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccardozo <ccardozo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 19:26:31 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/08 07:28:35 by ccardozo         ###   ########.fr       */
+/*   Created: 2021/09/08 07:25:32 by ccardozo          #+#    #+#             */
+/*   Updated: 2021/09/10 00:16:58 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philosopher.h"
+#include "includes/philosopher.h"
 
-int		main(int argc, char **argv)
+void	*start_routine(void *data)
 {
-	t_table		table;
-
-	memset(&table, 0, sizeof(t_table));
-	if ((check_arguments(argc, argv, &table)))
-		return (EXIT_SUCCESS);
-	if ((init_thread(&table)))
-		return (EXIT_SUCCESS);
+	t_philo *philo;
+	
+	philo = (t_philo *)data;
+	philo->philo_start_time = get_time_in_ms();
+	while (!philo->table->exit_ctrl)
+	{
+		eating(philo);
+	}
 	return (0);
 }

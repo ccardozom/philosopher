@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 19:01:28 by alesanto          #+#    #+#             */
-/*   Updated: 2021/07/08 01:44:41 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/09/10 00:58:04 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,74 +19,70 @@
 # include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdbool.h>
 
 typedef struct		s_philo
 {
-	int				nb;
-	int				tour;
-	int				der;
-	int				frk_l;
-	int				frk_r;
+	int				id;
+	bool			fork;
+	bool			check_fork_left;
+	bool			check_fork_right;
+	bool			life;
 	pthread_t		thread;
-	pthread_mutex_t	t_leat;
-	struct s_base	*base;
+	pthread_mutex_t	fork_left;
+	pthread_mutex_t	fork_right;
+	struct s_table	*table;
+	long int		philo_timer;
+	long int		philo_start_time;
+	int				eat_count;
 }					t_philo;
 
-typedef struct		s_base
+typedef struct		s_table
 {
-	int				nb_ph;
-	int				t_sleep;
-	int				t_eat;
-	int				t_die;
-	int				nb_eat;
-	int				time;
-	int				cmb;
-	int				finish;
+	int				number_philo;
+	int				time_to_sleep;
+	int				time_to_eat;
+	int				time_to_die;
+	int				number_eat;
+	int				exit_ctrl;
 	t_philo			*philo;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	text;
-}					t_base;
+}					t_table;
 
 /* --------------MAIN--------------- */
 
 int		main(int argc, char **argv);
 
+/* --------------INITIALIZE--------------- */
+
+int		init_philo(t_table *table);
+
 /* --------------TREAD--------------- */
 
-int		init_thread(t_base *base);
+int		init_thread(t_table *table);
 void	*start_routine(void *args);
-void	*is_he_dead(void *args);
-int		chronos(void);
+long int	get_time_in_ms(void);
 
 /* --------------ROUTINE--------------- */
 
-void	ft_frk(t_philo *philo);
-void	ft_frk_no(t_philo *philo);
-void	eat(t_philo *philo);
-void	sleeping(t_philo *philo);
+void	eating(t_philo *philo);
 
 /* --------------CHECKERS--------------- */
 
-int		check_arguments(int argc, char **argv, t_base *base);
+int		check_arguments(int argc, char **argv, t_table *table);
 int		check_philo(void *args);
-
-/* --------------AFF--------------- */
-
-void	aff(t_philo *philo, int i);
-char	*text(int i);
 
 /* --------------OUTILS--------------- */
 
 char    *wrong_list(int number);
 int		ft_atoi(const char *str);
 size_t	ft_strlen(const char *str);
-void	ft_putnbr_fd(int n, int fd);
-int		ft_isdigit(int c);
-void	ft_putchar_fd(char c, int fd);
+
+/* --------------PRINTERS--------------- */
+
+void	print_wrong_text(int check);
 
 /* --------------EXIT--------------- */
 
-int		clean_ph(t_base *base);
-int		exit_error(t_base *base, int i);
+void    exit_ctrl(t_philo *philo);
 
 #endif
