@@ -6,21 +6,11 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 07:25:32 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/20 15:49:02 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/09/22 14:51:43 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philosopher.h"
-
-void	sleeping(t_table *table)
-{
-	long int	time;
-
-	time = get_time_in_ms();
-	usleep(table->time_to_sleep * 1000);
-	printf("%ld Philo: %d is sleeping...\n",
-		time - table->philo->philo_start_time, table->philo->id);
-}
 
 void	*start_routine(void *data)
 {
@@ -35,11 +25,14 @@ void	*start_routine(void *data)
 	else
 		next = pos + 1;
 	if (pos % 2 != 0)
-		usleep(table->time_to_eat * 1000);
+		usleep(table->teat * 1000);
 	while (1)
-	{	
-		eating(table, pos, next);
-		sleeping(table);
+	{
+		if (table->philo[pos].check != 1)
+		{
+			eating(table, pos, next);
+			sleeping(table, pos);
+		}
 	}
 	return (0);
 }

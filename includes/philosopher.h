@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 19:01:28 by alesanto          #+#    #+#             */
-/*   Updated: 2021/09/20 15:57:45 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/09/22 14:51:57 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,22 @@
 
 typedef struct s_philo
 {
-	int				id;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
-	struct s_table	*table;
-	int				fork_philo;
-	long int		philo_timer;
-	long int		philo_start_time;
-	int				eat_count;
+	long int		tlast_eat;
+	int				eat_i;
+	int				check;
 }					t_philo;
 
 typedef struct s_table
 {
+	long int		init_program;
 	int				number_philo;
-	int				time_to_sleep;
-	int				time_to_eat;
-	int				time_to_die;
+	int				tsleep;
+	int				teat;
+	int				tdie;
 	int				number_eat;
+	int				all_eat;
 	int				cont;
 	t_philo			*philo;
 	pthread_mutex_t	print;
@@ -61,6 +60,7 @@ long int	get_time_in_ms(void);
 /* --------------ROUTINE--------------- */
 
 void		eating(t_table *table, int left, int right);
+void		sleeping(t_table *table, int pos);
 
 /* --------------CHECKERS--------------- */
 
@@ -72,6 +72,7 @@ int			check_philo(void *args);
 char		*wrong_list(int number);
 int			ft_atoi(const char *str);
 size_t		ft_strlen(const char *str);
+void		ft_usleep(long int time);
 
 /* --------------PRINTERS--------------- */
 

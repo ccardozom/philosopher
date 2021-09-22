@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_wrong_text.c                                 :+:      :+:    :+:   */
+/*   ft_usleep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/21 10:32:23 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/22 14:26:28 by ccardozo         ###   ########.fr       */
+/*   Created: 2021/09/22 14:19:55 by ccardozo          #+#    #+#             */
+/*   Updated: 2021/09/22 14:20:13 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philosopher.h"
+#include "includes/philosopher.h"
 
-void	print_wrong_text(int check)
+void	ft_usleep(long int time)
 {
-	char	*wrong_text1;
-	char	*wrong_text2;
+	long int	system_time;
 
-	wrong_text1 = "Wrong number of ";
-	wrong_text2 = "Wrong number: ";
-	if (check > 0 && check < 4)
-	{
-		printf("%s%s\n", wrong_text1, wrong_list(check));
-		exit(-1);
-	}
-	else if (check > 3 && check < 7)
-	{
-		printf("%s%s\n", wrong_text2, wrong_list(check));
-		exit(-1);
-	}
+	system_time = get_time_in_ms();
+	while (get_time_in_ms() < (system_time + time))
+		usleep(60);
 }

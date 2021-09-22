@@ -1,4 +1,4 @@
-NAME = philosopher
+NAME = philo
 
 SRCS_DIR = ./
 OBJ_DIR = obj/
