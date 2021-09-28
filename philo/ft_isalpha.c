@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 19:26:31 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/22 14:24:43 by ccardozo         ###   ########.fr       */
+/*   Created: 2021/09/23 13:22:31 by ccardozo          #+#    #+#             */
+/*   Updated: 2021/09/23 13:22:45 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philosopher.h"
+#include "includes/philosopher.h"
 
-int	main(int argc, char **argv)
+int	ft_isalpha(int c)
 {
-	t_table	table;
-
-	memset(&table, 0, sizeof(t_table));
-	if ((check_arguments(argc, argv, &table)))
-		return (EXIT_SUCCESS);
-	if ((init_thread(&table)))
-		return (EXIT_SUCCESS);
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
 	return (0);
 }

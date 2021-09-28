@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 07:24:21 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/22 14:13:47 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/09/23 12:50:44 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	init_philo(t_table *table)
 	int	cont;
 
 	table->philo = malloc(sizeof(t_philo) * table->number_philo);
+	if (!table->philo)
+		return (1);
 	cont = 0;
 	table->cont = 0;
 	while (cont < table->number_philo)

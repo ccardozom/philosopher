@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/08 01:45:35 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/20 15:53:48 by ccardozo         ###   ########.fr       */
+/*   Created: 2021/07/07 19:26:31 by ccardozo          #+#    #+#             */
+/*   Updated: 2021/09/23 12:05:37 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	unsigned int	num;
-	int				i;
-	int				np;
+#include "./includes/philosopher.h"
 
-	np = 1;
-	i = 0;
-	num = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f'
-		|| str[i] == '\r' || str[i] == '\n' || str[i] == '\v')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-		if (str[i++] == '-')
-			np = -1;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		num = num * 10 + (str[i] - '0');
-		i++;
-	}
-	return ((int)(np * num));
+int	main(int argc, char **argv)
+{
+	t_table	table;
+
+	memset(&table, 0, sizeof(t_table));
+	if ((check_arguments(argc, argv, &table)))
+		return (EXIT_SUCCESS);
+	if ((init_thread(&table)))
+		return (EXIT_SUCCESS);
+	return (0);
 }

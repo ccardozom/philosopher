@@ -6,14 +6,38 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 19:49:41 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/22 14:51:57 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/09/28 09:14:00 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/philosopher.h"
 
-void	save_arguments(t_table *table, int argc, char **argv)
+int	parser_arguments(char **argv)
 {
+	int	i;
+	int	j;
+
+	i = 1;
+	if (ft_strlen(argv[i]) > 3)
+		return (1);
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (ft_isalpha(argv[i][j]))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	save_arguments(t_table *table, int argc, char **argv)
+{
+	if (parser_arguments(argv))
+		return (1);
 	table->number_philo = ft_atoi(argv[1]);
 	table->tdie = ft_atoi(argv[2]);
 	table->teat = ft_atoi(argv[3]);
@@ -22,6 +46,7 @@ void	save_arguments(t_table *table, int argc, char **argv)
 		table->number_eat = ft_atoi(argv[5]);
 	pthread_mutex_init(&table->print, NULL);
 	table->init_program = get_time_in_ms();
+	return (0);
 }
 
 int	check_arguments(int argc, char **argv, t_table *table)
@@ -32,11 +57,13 @@ int	check_arguments(int argc, char **argv, t_table *table)
 	if (argc < 5 || argc > 6)
 	{
 		wrong_check = 1;
-		print_wrong_text(wrong_check);
-		return (1);
+		return (print_wrong_text(wrong_check));
 	}
-	save_arguments(table, argc, argv);
-	if (argc == 6 && (table->number_eat < 0))
+	if (save_arguments(table, argc, argv))
+		return (1);
+	if (table->number_philo == 0 || table->number_philo > 200)
+		return (1);
+	else if (argc == 6 && (table->number_eat < 0))
 		wrong_check = 2;
 	else if (table->tdie < 60 || table->tdie > RAND_MAX)
 		wrong_check = 4;
@@ -46,6 +73,5 @@ int	check_arguments(int argc, char **argv, t_table *table)
 		wrong_check = 6;
 	else
 		return (init_philo(table));
-	print_wrong_text(wrong_check);
-	return (1);
+	return (print_wrong_text(wrong_check));
 }

@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 19:01:28 by alesanto          #+#    #+#             */
-/*   Updated: 2021/09/22 14:51:57 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/09/28 09:14:07 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,11 @@ char		*wrong_list(int number);
 int			ft_atoi(const char *str);
 size_t		ft_strlen(const char *str);
 void		ft_usleep(long int time);
+int			ft_isalpha(int c);
 
 /* --------------PRINTERS--------------- */
 
-void		print_wrong_text(int check);
+int			print_wrong_text(int check);
 void		print_msj(t_table *table, int pos, char *str);
 
 /* --------------EXIT--------------- */

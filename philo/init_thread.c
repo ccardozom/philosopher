@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 11:30:00 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/22 14:26:32 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/09/24 08:33:31 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	control_eat_i(t_table *table)
 	}
 }
 
-void	exit_program(t_table *table, int i, int signal)
+int	exit_program(t_table *table, int i, int signal)
 {
 	pthread_mutex_lock(&table->print);
 	if (signal == 1)
@@ -42,10 +42,10 @@ void	exit_program(t_table *table, int i, int signal)
 	{
 		free(table->philo);
 	}
-	exit(0);
+	 return (1);
 }
 
-void	control_routine(void *data)
+int	control_routine(void *data)
 {
 	t_table	*table;
 	int		i;
@@ -58,12 +58,12 @@ void	control_routine(void *data)
 		while (++i < table->number_philo)
 		{
 			if (get_time_in_ms() > table->philo[i].tlast_eat + table->tdie)
-				exit_program(table, i, 1);
+				return (exit_program(table, i, 1));
 			if (table->number_eat)
 			{
 				if (table->philo[i].check == 1
 					&& table->all_eat == table->number_philo)
-					exit_program(table, i, 2);
+					return (exit_program(table, i, 2));
 			}
 		}
 	}
@@ -83,7 +83,8 @@ int	init_thread(t_table *table)
 			return (1);
 		cont++;
 	}
-	pthread_create(&thread_aux, NULL, (void *)control_routine, table);
+	if (pthread_create(&thread_aux, NULL, (void *)control_routine, table) != 0)
+		return (1);
 	pthread_join(thread_aux, NULL);
 	return (0);
 }
