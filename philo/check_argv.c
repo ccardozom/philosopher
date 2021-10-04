@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 19:49:41 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/28 09:14:00 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/10/04 11:21:03 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	parser_arguments(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (ft_isalpha(argv[i][j]))
+			if (!ft_isdigit(argv[i][j]))
 				return (1);
 			j++;
 		}
@@ -43,7 +43,11 @@ int	save_arguments(t_table *table, int argc, char **argv)
 	table->teat = ft_atoi(argv[3]);
 	table->tsleep = ft_atoi(argv[4]);
 	if (argc == 6)
+	{
 		table->number_eat = ft_atoi(argv[5]);
+		if (table->number_eat == 0)
+			return (1);
+	}
 	pthread_mutex_init(&table->print, NULL);
 	table->init_program = get_time_in_ms();
 	return (0);

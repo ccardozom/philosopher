@@ -11,7 +11,7 @@ RM = rm -rf
 SOURCES = 	check_argv.c \
 			eating.c \
 			ft_atoi.c \
-			ft_isalpha.c \
+			ft_isdigit.c \
 			ft_strlen.c \
 			ft_usleep.c \
 			init_philo.c \

@@ -6,27 +6,22 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 11:30:00 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/24 08:33:31 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:53:43 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philosopher.h"
 
-void	control_eat_i(t_table *table)
-{
-	int	i;
-
-	i = -1;
-	table->all_eat = 0;
-	while (++i < table->number_philo)
-	{
-		if (table->philo[i].check == 1)
-			table->all_eat++;
-	}
-}
-
 int	exit_program(t_table *table, int i, int signal)
 {
+	int	cont;
+
+	cont = 0;
+	while (cont < table->number_philo)
+	{
+		pthread_detach(table->philo[cont].thread);
+		cont++;
+	}
 	pthread_mutex_lock(&table->print);
 	if (signal == 1)
 	{
@@ -51,22 +46,24 @@ int	control_routine(void *data)
 	int		i;
 
 	table = (void *)data;
-	while (1)
+	while (!table->its_die)
 	{
-		control_eat_i(table);
 		i = -1;
 		while (++i < table->number_philo)
 		{
-			if (get_time_in_ms() > table->philo[i].tlast_eat + table->tdie)
-				return (exit_program(table, i, 1));
 			if (table->number_eat)
 			{
-				if (table->philo[i].check == 1
-					&& table->all_eat == table->number_philo)
+				if (table->all_eat == table->number_philo)
 					return (exit_program(table, i, 2));
+			}
+			else if (get_time_in_ms() > table->philo[i].tlast_eat + table->tdie)
+			{
+				table->its_die = 1;
+				return (exit_program(table, i, 1));
 			}
 		}
 	}
+	return (0);
 }
 
 int	init_thread(t_table *table)
@@ -83,6 +80,7 @@ int	init_thread(t_table *table)
 			return (1);
 		cont++;
 	}
+	cont = 0;
 	if (pthread_create(&thread_aux, NULL, (void *)control_routine, table) != 0)
 		return (1);
 	pthread_join(thread_aux, NULL);

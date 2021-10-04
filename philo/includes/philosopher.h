@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 19:01:28 by alesanto          #+#    #+#             */
-/*   Updated: 2021/09/28 09:14:07 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:59:51 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ typedef struct s_table
 	int				tdie;
 	int				number_eat;
 	int				all_eat;
+	int				its_die;
 	int				cont;
+	pthread_mutex_t	m_cont;
 	t_philo			*philo;
 	pthread_mutex_t	print;
 }					t_table;
@@ -73,7 +75,7 @@ char		*wrong_list(int number);
 int			ft_atoi(const char *str);
 size_t		ft_strlen(const char *str);
 void		ft_usleep(long int time);
-int			ft_isalpha(int c);
+int			ft_isdigit(int c);
 
 /* --------------PRINTERS--------------- */
 

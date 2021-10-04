@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 07:24:21 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/23 12:50:44 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:59:41 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ int	init_philo(t_table *table)
 		return (1);
 	cont = 0;
 	table->cont = 0;
+	table->its_die = 0;
+	pthread_mutex_init(&table->m_cont, NULL);
 	while (cont < table->number_philo)
 	{
 		if (table->number_eat)
 			table->philo[cont].eat_i = table->number_eat;
 		else
 			table->philo[cont].eat_i = 0;
+		table->philo[cont].check = 0;
 		pthread_mutex_init(&table->philo[cont].fork, NULL);
 		cont++;
 	}

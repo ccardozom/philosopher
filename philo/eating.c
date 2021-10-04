@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 07:26:42 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/22 14:53:00 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:08:43 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ void	eating(t_table *table, int pos, int next)
 	print_msj(table, pos, "is eating");
 	if (table->number_eat)
 	{
-		if (table->philo[pos].eat_i != 0)
+		if (table->philo[pos].eat_i != 1)
 			table->philo[pos].eat_i--;
 		else
+		{
 			table->philo[pos].check = 1;
+			table->all_eat++;
+		}
 	}
 	table->philo[pos].tlast_eat = get_time_in_ms();
 	ft_usleep(table->teat);

@@ -6,7 +6,7 @@
 /*   By: ccardozo <ccardozo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 19:26:31 by ccardozo          #+#    #+#             */
-/*   Updated: 2021/09/23 12:05:37 by ccardozo         ###   ########.fr       */
+/*   Updated: 2021/10/04 08:30:30 by ccardozo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	main(int argc, char **argv)
 
 	memset(&table, 0, sizeof(t_table));
 	if ((check_arguments(argc, argv, &table)))
-		return (EXIT_SUCCESS);
+		return (1);
 	if ((init_thread(&table)))
-		return (EXIT_SUCCESS);
+		return (1);
 	return (0);
 }
